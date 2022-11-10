@@ -1,16 +1,14 @@
 import java.util.Scanner;
 import java.io.File;
-public class Board{
+public class Board {
 
-private String loadPhrase()
-  {
+  private String loadPhrase() {
     String tempPhrase = "";
     
     int numOfLines = 0;
     tempPhrase = "how are you";
     
-    try 
-    {
+    try {
       
       Scanner sc = new Scanner(new File(/*Replace with the path*/"phrases.txt"));
       while (sc.hasNextLine())
@@ -20,10 +18,9 @@ private String loadPhrase()
       }
     } catch(Exception e) { System.out.println("Error reading or parsing phrases.txt"); }
     
-		int randomInt = (int) ((Math.random() * numOfLines) + 1);
+    int randomInt = (int) ((Math.random() * numOfLines) + 1);
     
-    try 
-    {
+    try {
       int count = 0;
       Scanner sc = new Scanner(new File(/*Replace with the path*/"phrases.txt"));
       while (sc.hasNextLine())
@@ -36,5 +33,9 @@ private String loadPhrase()
         }
       }
     } catch (Exception e) { System.out.println("Error reading or parsing phrases.txt"); }
+    
+    System.out.println(tempPhrase);
+    return tempPhrase;
 
   }
+}
