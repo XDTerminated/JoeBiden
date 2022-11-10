@@ -2,15 +2,15 @@ import java.util.Scanner;
 import java.io.File;
 public class Board {
 
+
   private String loadPhrase() {
     String tempPhrase = "";
-    
     int numOfLines = 0;
     tempPhrase = "how are you";
     
     try {
       
-      Scanner sc = new Scanner(new File(/*Replace with the path*/"phrases.txt"));
+      Scanner sc = new Scanner(new File("/workspace/Joe-Biden/phrases/phrases.txt"));
       while (sc.hasNextLine())
       {
         tempPhrase = sc.nextLine().trim();
@@ -22,7 +22,7 @@ public class Board {
     
     try {
       int count = 0;
-      Scanner sc = new Scanner(new File(/*Replace with the path*/"phrases.txt"));
+      Scanner sc = new Scanner(new File("/workspace/Joe-Biden/phrases/phrases.txt"));
       while (sc.hasNextLine())
       {
         count++;
@@ -33,9 +33,24 @@ public class Board {
         }
       }
     } catch (Exception e) { System.out.println("Error reading or parsing phrases.txt"); }
-    
-    System.out.println(tempPhrase);
     return tempPhrase;
+  }
 
+  public String getLines(String phrase) {
+    String lines = "";
+    for (int i = 0; i < phrase.length(); i++) {
+      if (phrase.substring(i, i+1).equals(" ")) {
+        lines+=" ";
+      } else {
+        lines+="-";
+      }
+    }
+
+    return lines;
+  }
+
+  public String getPhrase() {
+    String s = loadPhrase();
+    return s;
   }
 }
