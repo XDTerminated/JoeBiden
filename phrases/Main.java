@@ -31,7 +31,7 @@ public class Main {
                 System.out.println("Tries Left: " + playerTries1);
             } else {
                 System.out.println("Player 2 Turn: ");
-                System.out.println("Tries Left: " + playerTries1);
+                System.out.println("Tries Left: " + playerTries2);
             }
 
             System.out.println(lines);
@@ -40,20 +40,24 @@ public class Main {
             if (!phrase.contains(character)) {
                 if (turn == 0) {
                     playerTries1--;
+                    turn = 1;
                 } else {
                     playerTries2--;
+                    turn = 0;
                 }
+            } else {
+                while (phrase.contains(character)) {
+                    int index = phrase.indexOf(character);
+                    phrase = phrase.substring(0, index) + "*"
+                + phrase.substring(index + 1, phrase.length());
+    
+                    lines = lines.substring(0, index) + character
+                + lines.substring(index + 1, lines.length());
+                }
+    
             }
 
-            while (phrase.contains(character)) {
-                int index = phrase.indexOf(character);
-                phrase = phrase.substring(0, index) + "*"
-            + phrase.substring(index + 1, phrase.length());
-
-                lines = lines.substring(0, index) + character
-            + lines.substring(index + 1, lines.length());
-            }
-
+            
             if (playerTries1 == 0) {
                 System.out.println(player1.getPlayerName() + " loses, " + player2.getPlayerName() + " wins.");
                 break;
@@ -65,11 +69,6 @@ public class Main {
                 break;
             }
 
-            if (turn == 0) {
-                turn = 1;
-            } else {
-                turn = 0;
-            }
 
 
         }
