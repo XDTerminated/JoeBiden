@@ -3,7 +3,7 @@ import java.io.File;
 public class Board {
 
 
-  private String loadPhrase() {
+  private static String loadPhrase() {
     String tempPhrase = "";
     int numOfLines = 0;
     tempPhrase = "how are you";
@@ -36,7 +36,7 @@ public class Board {
     return tempPhrase;
   }
 
-  public String getLines(String phrase) {
+  public static String getLines(String phrase) {
     String lines = "";
     for (int i = 0; i < phrase.length(); i++) {
       if (phrase.substring(i, i+1).equals(" ")) {
@@ -49,7 +49,7 @@ public class Board {
     return lines;
   }
 
-  public String getPhrase() {
+  public static String getPhrase() {
     String s = loadPhrase();
     return s;
   }

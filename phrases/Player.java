@@ -1,28 +1,27 @@
-public class Player {
-    private String playerName;
-    private int playerScore;
+class Player {
+    String name;
+    int score;
 
-    Player (String playerName, int playerScore) {
-        this.playerName = playerName;
-        this.playerScore = playerScore;
+    Player(String name, int score) {
+        this.name = name;
+        this.score = score;
     }
 
-    public String getPlayerName() {
-        return playerName;
+    // Setters
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public int getPlayerScore() {
-        return playerScore;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public void setPlayerName(String playerName) {
-        this.playerName = playerName;
+    // Getters
+    public String getName() {
+        return this.name;
     }
 
-    public void setPlayerScore(int playerScore) {
-        this.playerScore = playerScore;
+    public int getScore() {
+        return this.score;
     }
-
-
-
 }

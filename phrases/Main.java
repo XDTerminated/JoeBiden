@@ -1,80 +1,89 @@
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) { 
-        
+    public static void main(String args[]) {
+        // Variables
         Scanner scanner = new Scanner(System.in);
+        Random rand = new Random();
 
-        Board board = new Board();
-        String phrase = board.getPhrase();
+        System.out.println("Enter Player 1 name: ");
+        Player player1 = new Player(scanner.next(), 0);
 
-        String lines = board.getLines(phrase);
+        System.out.println("Enter Player 2 name: ");
+        Player player2 = new Player(scanner.next(), 0);
 
-        System.out.println("Player 1 Name: ");
-        String player1name = scanner.next();
-        System.out.println("Player 2 Name: ");
-        String player2name = scanner.next();
+        boolean game = true;
 
-        Player player1 = new Player(player1name, 0);
-        Player player2 = new Player(player2name, 0);
+        System.out.println("Welcome to hangman. Try to guess the word before your opponent to win!");
 
-        
-        int playerTries1 = 5;
-        int playerTries2 = 5;
+        // Game
+        while (game) {
+            String phrase = Board.getPhrase();
+            String phraseGuess = "";
 
-        int turn = 0;
-
-        while (true) {
-
-            if (turn == 0) {
-                System.out.println("Player 1 Turn: ");
-                System.out.println("Tries Left: " + playerTries1);
-            } else {
-                System.out.println("Player 2 Turn: ");
-                System.out.println("Tries Left: " + playerTries2);
-            }
-
-            System.out.println(lines);
-            String character = scanner.next();
-            
-            if (!phrase.contains(character)) {
-                if (turn == 0) {
-                    playerTries1--;
-                    turn = 1;
+            for (int i = 0; i < phrase.length(); i++) {
+                if (phrase.substring(i, i + 1).equals(" ")) {
+                    phraseGuess = phraseGuess + " ";
                 } else {
-                    playerTries2--;
-                    turn = 0;
+                    phraseGuess = phraseGuess + "-";
                 }
-            } else {
-                while (phrase.contains(character)) {
-                    int index = phrase.indexOf(character);
-                    phrase = phrase.substring(0, index) + "*"
-                + phrase.substring(index + 1, phrase.length());
-    
-                    lines = lines.substring(0, index) + character
-                + lines.substring(index + 1, lines.length());
-                }
-    
             }
 
-            
-            if (playerTries1 == 0) {
-                System.out.println(player1.getPlayerName() + " loses, " + player2.getPlayerName() + " wins.");
-                break;
-            } else if (playerTries2 == 0) {
-                System.out.println(player2.getPlayerName() + " loses, " + player1.getPlayerName() + " wins.");
-                break;
-            } else if (!lines.contains("-") && turn == 0) {
-                System.out.println("Congratulations"  + player1.getPlayerName() + " win.");
-                break;
+            int turn = rand.nextInt(2);
+            System.out.println("Player " + (turn + 1) + " will go first\n\n");
+
+            while (true) {
+                if (turn == 0) {
+                    System.out.println(player1.getName() + "\'s turn: ");
+                } else if (turn == 1) {
+                    System.out.println(player2.getName() + "\'s turn: ");
+                }
+
+                System.out.println(phraseGuess);
+
+                System.out.println("Make a guess (If you type in multiple characters, only the first character will be considered)");
+
+                String guess = scanner.next().substring(0, 1);
+
+                if (phrase.contains(guess) && !guess.equals(" ")) {
+                    for (int i = 0; i < phrase.length(); i++) {
+                        if (phrase.substring(i, i+1).equals(guess)) {
+                            phraseGuess = phraseGuess.substring(0, i) + guess + phraseGuess.substring(i + 1, phrase.length());
+                        }
+                    }
+                } else {
+                    System.out.println("That letter does not exist in the phrase.");
+                    if (turn == 0) {
+                        turn++;
+                    } else {
+                        turn--;
+                    }
+                }
+
+                if (turn == 0) {
+                    if (!phraseGuess.contains("-")) {
+                        System.out.println("Player 1 Wins");
+                        player1.setScore(player1.getScore() + 1);
+                        break;
+                    }
+                } else if (turn == 1) {
+                    if (!phraseGuess.contains("-")) {
+                        System.out.println("Player 2 Wins");
+                        player2.setScore(player2.getScore() + 1);
+                        break;
+                    }
+                }
             }
 
-
+            System.out.println("Would you like to play again? (1 for yes, 0 for no)");
+            if (scanner.nextInt() == 0) {
+                System.out.println("Final Score: \n\t" + player1.getName() + ": " + player1.getScore() + "\n\t" + player2.getName() + ": " + player2.getScore());
+                break;
+            }
 
         }
 
-
         scanner.close();
-        
+
     }
 }
