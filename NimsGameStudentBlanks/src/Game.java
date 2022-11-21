@@ -1,61 +1,54 @@
-import java.util.Scanner;
-public class Game {
+import java.util.*;
+
+class Game {
+
+    Scanner scanner = new Scanner(System.in);
+
     private int pieces;
-    private Player p1;
-    private Player p2;
-    private Player currentPlayer;
-    private Scanner sc = new Scanner(System.in);
+    private int turn;
 
-    //Sets up the game with a random amount of pieces between 10 and 50
-    //Sets up the players so they can be accessed
-    public Game(Player p1, Player p2){
-        pieces = 0;//To Do: Grab a random value between 10 and 50
-        this.p1 = p1;
-        this.p2 = p2;
+    Game(int pieces, int turn) {
+        this.pieces = pieces;
+        this.turn = turn;
     }
 
-    //Allows a player to take a specific amount of pieces.
-    //Adds the amount of pieces taken to the user's score.
-    public int takePiece(){
-        System.out.println("There are "+ pieces+" remaining!");
-        int take;
-       //TO DO: Grab the user amount of pieces and repeat if it not allowed.
-        while (!isLegal(take)){
-            
+    public int turnPlayed() {
+        System.out.println("How many pieces do you want to take out? ");
+
+        int numOfPieces = scanner.nextInt();
+        if (numOfPieces == 1) {
+
+        } else {
+            while ((numOfPieces > (int) this.pieces/2) || (numOfPieces < 1)) {
+                System.out.println("Try Again: ");
+                numOfPieces = scanner.nextInt();
+            }
         }
-        //TO DO: Adjust the pieces
 
-        System.out.println("There are "+ pieces+" remaining!");
-        System.out.println("-----------------------");
-        return take;
+
+        this.pieces = this.pieces - numOfPieces;
+        return numOfPieces;
     }
+
+    public int getPieces() {
+        return this.pieces;
+    }
+
+    public int getTurn() {
+        return this.turn;
+    }
+
+    public void setTurn(int turn) {
+        this.turn = turn;
+    }
+
+    public void setPieces(int pieces) {
+        this.pieces = pieces;
+    }
+
+
+
 
     
-    //**TO DO**//
-    public Player getNextPlayer(){
-    //Changes which players turn it is and returns the current player.
-       
-        return currentPlayer;
-    }
 
-    //Checks whether or not the user's requested move is allowed or not.
-    public boolean isLegal(int x){
-
-        //TO DO
-
-        return false;// Change appropriately
-    }
-
-
-    //DO NOT CHANGE
-    public boolean isComplete(){
-
-        if (pieces == 0){ return true;}
-        return false;
-    }
-
-    //DO NOT CHANGE
-    public void setFirstPlayer(Player p){
-        currentPlayer = p;
-    }
 }

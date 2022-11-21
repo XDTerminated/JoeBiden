@@ -1,25 +1,37 @@
-public class Player {
-    private int score = 0;
+class Player {
     private String name;
+    private int score;
+    private int pieces;
 
-    //DO NOT CHANGE
-    public Player(String name){
-
+    Player(String name, int score) {
         this.name = name;
-        System.out.println("-----------------------------");
     }
 
-    //TO DO
-    public void/*Change to appropriate data type, not void*/ getScore(){
-     
-    }
-    //TO DO
-    public void/*Change to appropriate data type, not void*/ getName(){
-
-      
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void adjustScore(int x){
-        score +=x;
+    public void setPieces(int pieces) {
+        this.pieces = pieces + this.pieces;
+    }
+
+    public void resetPieces() {
+        this.pieces = 0;
+    }
+
+    public void setScore(int score) {
+        this.score = score + this.score;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public int getPieces() {
+        return this.pieces;
+    }
+
+    public int getScore() {
+        return this.score;
     }
 }
